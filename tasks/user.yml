@@ -2,7 +2,7 @@
 
 - name: create gopath directories
   file:
-    path: "{{ (golang_user == "root") | ternary("/root/"+golang_gopath,"/home/"+golang_user+"/"+golang_gopath) }}"
+    path: "{{ (golang_user == 'root') | ternary('/root/'+golang_gopath,'/home/'+golang_user+'/'+golang_gopath) }}"
     state: directory
     owner: "{{ golang_user }}"
     group: "{{ golang_user }}"
@@ -10,7 +10,7 @@
 
 - name: add go binaries and GOPATH to .profile
   blockinfile:
-    path: "{{ (golang_user == "root") | ternary("/root/.profile","/home/"+golang_user+"/.profile") }}"
+    path: "{{ (golang_user == 'root') | ternary('/root/.profile','/home/'+golang_user+'/.profile') }}"
     block: |
       export GOPATH=$HOME/{{ golang_gopath }}
       export GOROOT=/usr/lib/go-{{ golang_version }}
@@ -20,7 +20,7 @@
 
 - name: create gopath sub-directories
   file:
-    path: "{{ (golang_user == "root") | ternary("/root/"+golang_gopath+"/"+item,"/home/"+golang_user+"/"+golang_gopath+"/"+item) }}"
+    path: "{{ (golang_user == 'root') | ternary('/root/'+golang_gopath+'/'+item,'/home/'+golang_user+'/'+golang_gopath+'/'+item) }}"
     state: directory
     owner: "{{ golang_user }}"
     group: "{{ golang_user }}"
