@@ -35,7 +35,7 @@
   args:
     executable: /bin/bash
   become: yes
-  become_user: vagrant
+  become_user: "{{ golang_user }}"
   with_items: "{{ golang_additional_libraries }}"
 
 ...
