@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: andrelohmann
+  description: ansible galaxy role to install gopher golang repo
+  company: smartformer UG
+
+  license: MIT
+
+  min_ansible_version: 2.5
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - xenial
+    - bionic
+
+  galaxy_tags:
+  - go-lang
+
+dependencies: []
+...

@@ -1,0 +1,20 @@
+---
+# Install golang
+- name: install golang ppa
+  apt_repository:
+    repo: ppa:gophers/archive
+    state: present
+    filename: golang
+
+- name: install golang
+  apt:
+    name: "golang-{{ golang_version }}"
+    update_cache: yes
+
+
+- name: iterate golang_users
+  include: user.yml
+  with_items: "{{ golang_users }}"
+  loop_control:
+    loop_var: golang_user
+...
