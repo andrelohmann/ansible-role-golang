@@ -6,7 +6,7 @@
     state: directory
     owner: "{{ golang_user }}"
     group: "{{ golang_user }}"
-  mode: 0755
+    mode: 0755
 
 - name: add go binaries and GOPATH to .profile
   blockinfile:
