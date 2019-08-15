@@ -15,7 +15,7 @@ Role Variables
 
 The default set of variables defines the golang installation and needs at best to be overwritten in group_vars/host_vars
 
-    golang_version: '1.10'
+    golang_version: '1.12'
     golang_gopath: go
     golang_additional_libraries:
     - golang.org/x/tools/cmd/goimports
@@ -27,7 +27,7 @@ Example Playbook
 
     - hosts: golang
       roles:
-         - { role: andrelohmann.golang }
+         - andrelohmann.golang
 
 License
 -------

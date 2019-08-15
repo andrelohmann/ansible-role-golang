@@ -1,15 +1,16 @@
 ---
 language: python
-python: "2.7"
+python: "3.6"
 
 sudo: required
-dist: trusty
+dist: xenial
 
 # Install ansible
 addons:
   apt:
     packages:
-    - python-pip
+    - python3-pip
+    - python3-setuptools
 
 install:
   # Install ansible
@@ -22,10 +23,12 @@ install:
   - printf '[defaults]\nroles_path=../' >ansible.cfg
 
 script:
+  # install galaxy role
+  - ansible-galaxy install andrelohmann.accounts
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   # Run the role/playbook with ansible-playbook.
-  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo -vvv
+  - ansible-playbook -i tests/inventory tests/test.yml --connection=local
   # Run the role/playbook again, checking to make sure it's idempotent.
   #- >
   #  ansible-playbook -i tests/inventory tests/test.yml --connection=local
