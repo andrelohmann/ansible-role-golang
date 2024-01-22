@@ -1,20 +1,40 @@
 ---
-# Install golang
-- name: install golang ppa
-  apt_repository:
-    repo: ppa:gophers/archive
+
+- name: APT | Install dependencies
+  ansible.builtin.apt:
+    name: "{{ packages }}"
     state: present
-    filename: golang
+    dpkg_options: 'force-confnew,force-confdef'
+    autoclean: true
+    autoremove: true
+    update_cache: true
+    cache_valid_time: 3600
+  vars:
+    packages:
+    - software-properties-common
+    - gnupg2
 
-- name: install golang
-  apt:
-    name: "golang-{{ golang_version }}"
-    update_cache: yes
+- name: APT | Add golang-backports
+  ansible.builtin.apt_repository:
+    repo: 'ppa:longsleep/golang-backports'
 
+- name: APT | Install golang
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+    dpkg_options: 'force-confnew,force-confdef'
+    autoclean: true
+    autoremove: true
+    update_cache: true
+    cache_valid_time: 3600
+  vars:
+    packages:
+    - golang-{{ golang_version }}
 
-- name: iterate golang_users
-  include: user.yml
+- name: Iterate golang_users
+  ansible.builtin.include_tasks: user.yml
   with_items: "{{ golang_users }}"
   loop_control:
     loop_var: golang_user
+
 ...
