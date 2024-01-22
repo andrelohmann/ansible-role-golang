@@ -1,0 +1,23 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+
+  - name: Run go version
+    ansible.builtin.shell: source $HOME/.profile; go version
+    args:
+      executable: /bin/bash
+    register: go_version
+
+  - name: Dump go version
+    ansible.builtin.debug:
+      var: go_version
+
+  - name: Assert the go version is 1.21
+    ansible.builtin.assert:
+      that: go_version.stdout is search('go1.21.')
+
+...

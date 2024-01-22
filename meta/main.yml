@@ -3,20 +3,20 @@ galaxy_info:
   role_name: golang
   author: andrelohmann
   description: ansible galaxy role to install gopher golang repo
-  company: smartformer UG
+  company: CloudCourse GmbH
 
   license: MIT
 
-  min_ansible_version: 2.7
+  min_ansible_version: "2.11"
 
   platforms:
   - name: Ubuntu
     versions:
-    - xenial
-    - bionic
+    - jammy
+    - focal
 
   galaxy_tags:
-  - go-lang
+  - golang
 
 dependencies: []
 ...
