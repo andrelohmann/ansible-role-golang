@@ -3,6 +3,7 @@
 roles:
 - andrelohmann.root_colored_prompt
 
-collections: []
+collections:
+- community.general
 
 ...

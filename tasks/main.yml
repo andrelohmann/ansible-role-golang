@@ -1,6 +1,6 @@
 ---
 
-- name: APT | Install dependencies
+- name: GoLang | Install dependencies
   ansible.builtin.apt:
     name: "{{ packages }}"
     state: present
@@ -11,27 +11,15 @@
     cache_valid_time: 3600
   vars:
     packages:
-    - software-properties-common
-    - gnupg2
+    - snapd
 
-- name: APT | Add golang-backports
-  ansible.builtin.apt_repository:
-    repo: 'ppa:longsleep/golang-backports'
+# Install a snap with classic confinement
+- name: GoLang | Install "go" with option --classic
+  community.general.snap:
+    name: go
+    classic: true
 
-- name: APT | Install golang
-  ansible.builtin.apt:
-    name: "{{ packages }}"
-    state: present
-    dpkg_options: 'force-confnew,force-confdef'
-    autoclean: true
-    autoremove: true
-    update_cache: true
-    cache_valid_time: 3600
-  vars:
-    packages:
-    - golang-{{ golang_version }}
-
-- name: Iterate golang_users
+- name: GoLang | Iterate golang_users
   ansible.builtin.include_tasks: user.yml
   with_items: "{{ golang_users }}"
   loop_control:

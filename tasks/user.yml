@@ -1,36 +1,34 @@
 ---
 
-- name: Create gopath directories
+- name: GoLang | Create gopath directories
   ansible.builtin.file:
     path: "{{ (golang_user == 'root') | ternary('/root/' + golang_gopath, '/home/' + golang_user + '/' + golang_gopath) }}"
     state: directory
     owner: "{{ golang_user }}"
     group: "{{ golang_user }}"
-    mode: 0755
+    mode: "0755"
 
-- name: Add go binaries and GOPATH to .profile
+- name: GoLang | Add go binaries and GOPATH to .profile
   ansible.builtin.blockinfile:
     path: "{{ (golang_user == 'root') | ternary('/root/.profile', '/home/' + golang_user + '/.profile') }}"
     block: |
       export GOPATH=$HOME/{{ golang_gopath }}
-      export GOROOT=/usr/lib/go-{{ golang_version }}
-      export GOBIN=$GOPATH/bin
-      export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+      export PATH="$PATH:${GOPATH}/bin:/snap/bin"
     marker: "# {mark} go binaries and go path"
 
-- name: Create gopath sub-directories
+- name: GoLang | Create gopath sub-directories
   ansible.builtin.file:
     path: "{{ (golang_user == 'root') | ternary('/root/' + golang_gopath + '/' + item, '/home/' + golang_user + '/' + golang_gopath + '/' + item) }}"
     state: directory
     owner: "{{ golang_user }}"
     group: "{{ golang_user }}"
-    mode: 0755
+    mode: "0755"
   with_items:
   - bin
   - src
   - pkg
 
-- name: Install go libraries
+- name: GoLang | Install go libraries
   ansible.builtin.shell: "source $HOME/.profile; go install {{ item }}"
   args:
     executable: /bin/bash
