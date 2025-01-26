@@ -1,8 +1,15 @@
 ---
-golang_version: '1.21'
+golang_version: 'latest'  # 1.23.5
 golang_gopath: go
 golang_additional_libraries:
 - golang.org/x/tools/cmd/goimports@latest
 golang_users:
 - root
+
+# Maps from Ansible's arch facts to Go's naming conventions
+golang_arch_map:
+  x86_64: amd64
+  aarch64: arm64
+  armv7l: armv6l
+
 ...

@@ -16,7 +16,7 @@
     ansible.builtin.debug:
       var: go_version
 
-  - name: Assert the go version returned a version
+  - name: Assert the go is installed
     ansible.builtin.assert:
       that: go_version.stdout is search('go version go')
 

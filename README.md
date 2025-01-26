@@ -4,7 +4,7 @@
 
 ## Content
 
-Use this role to install the gophers golang repository on your ubuntu server.
+Use this role to install the gophers golang language from https://go.dev/dl to your ubuntu server.
 
 ### Requirements
 
@@ -14,7 +14,7 @@ This role requires ubuntu
 
 The default set of variables defines the golang installation and needs at best to be overwritten in group_vars/host_vars
 
-    golang_version: '1.21'
+    golang_version: '1.23.5' # or 'latest'
     golang_gopath: go
     golang_additional_libraries:
     - golang.org/x/tools/cmd/goimports@latest

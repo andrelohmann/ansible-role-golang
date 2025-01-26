@@ -1,5 +1,5 @@
 ---
-- name: Converge
+- name:  Converge
   hosts: all
   become: true
   become_method: sudo
@@ -13,6 +13,7 @@
     - root
 
   tasks:
+
   - name: "Include andrelohmann.golang"
     include_role:
       name: "andrelohmann.golang"
