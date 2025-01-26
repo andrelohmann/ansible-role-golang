@@ -1,11 +1,11 @@
 ---
-- name:  Converge
+- name:  prepare
   hosts: all
   become: true
   become_method: sudo
 
   vars:
-    golang_version: 'latest'
+    golang_version: '1.22.0'
     golang_gopath: go
     golang_additional_libraries:
     - golang.org/x/tools/cmd/goimports@latest
