@@ -11,13 +11,22 @@
     cache_valid_time: 3600
   vars:
     packages:
-    - snapd
+    - unzip
 
-# Install a snap with classic confinement
-- name: GoLang | Install "go" with option --classic
-  community.general.snap:
-    name: go
-    classic: true
+- name: GoLang | Set version
+  ansible.builtin.include_tasks: version.yml
+
+- name: GoLang | Check current installed version
+  ansible.builtin.shell: "source $HOME/.profile; set -o pipefail && go version 2>&1 | grep {{ golang_version }}"
+  args:
+    executable: /bin/bash
+  failed_when: false
+  register: golang_version_match
+  changed_when: false
+
+- name: GoLang | Install golang
+  ansible.builtin.include_tasks: install.yml
+  when: golang_version_match.rc != 0
 
 - name: GoLang | Iterate golang_users
   ansible.builtin.include_tasks: user.yml

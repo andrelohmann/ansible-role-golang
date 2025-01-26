@@ -1,0 +1,19 @@
+---
+
+- name: GoLang | Extract latest version number
+  when: golang_version == "latest"
+  block:
+
+  - name: GoLang | Parse golang versions json
+    ansible.builtin.uri:
+      url: https://go.dev/dl/?mode=json
+      method: GET
+      return_content: true
+      status_code: 200
+    register: golang_versions_json
+
+  - name: GoLang | Set version
+    ansible.builtin.set_fact:
+      golang_version: "{{ golang_versions_json.json[0].version | regex_replace('^go', '') }}"
+
+...

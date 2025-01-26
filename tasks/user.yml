@@ -13,7 +13,7 @@
     path: "{{ (golang_user == 'root') | ternary('/root/.profile', '/home/' + golang_user + '/.profile') }}"
     block: |
       export GOPATH=$HOME/{{ golang_gopath }}
-      export PATH="$PATH:${GOPATH}/bin:/snap/bin"
+      export PATH="$PATH:${GOPATH}/bin:/usr/local/go/bin"
     marker: "# {mark} go binaries and go path"
 
 - name: GoLang | Create gopath sub-directories

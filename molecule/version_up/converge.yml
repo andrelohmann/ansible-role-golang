@@ -1,0 +1,37 @@
+---
+- name:  Converge
+  hosts: all
+  become: true
+  become_method: sudo
+
+  vars:
+    golang_version: '1.23.0'
+    golang_gopath: go
+    golang_additional_libraries:
+    - golang.org/x/tools/cmd/goimports@latest
+    golang_users:
+    - root
+
+  tasks:
+
+  - name: GoLang | Check for installed go
+    ansible.builtin.shell: "source $HOME/.profile; set -o pipefail && go version 2>&1 | grep version"
+    args:
+      executable: /bin/bash
+    failed_when: false
+    register: golang_version_installed
+    changed_when: false
+
+  - name: "Include andrelohmann.golang"
+    include_role:
+      name: "andrelohmann.golang"
+    when: golang_version_installed.rc != 0
+
+  - name: GoLang | Set version
+    ansible.builtin.set_fact:
+      golang_version: "latest"
+
+  - name: "Include andrelohmann.golang and install latest golang_version"
+    include_role:
+      name: "andrelohmann.golang"
+...

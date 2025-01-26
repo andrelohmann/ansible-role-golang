@@ -1,0 +1,27 @@
+---
+
+- name: GoLang | Set arch for Go
+  ansible.builtin.set_fact:
+    go_arch: "{{ golang_arch_map[ansible_machine] | default('amd64') }}"
+  changed_when: false
+
+- name:  GoLang | Download golang archive
+  ansible.builtin.get_url:
+    url: "https://go.dev/dl/go{{ golang_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: /tmp/golang-{{ golang_version }}.zip
+    owner: root
+    group: root
+    mode: "0644"
+
+- name:  GoLang | Remove existing golang installation
+  ansible.builtin.file:
+    state: absent
+    path: /usr/local/go
+
+- name: GoLang | Unarchive golang archive
+  ansible.builtin.unarchive:
+    src: /tmp/golang-{{ golang_version }}.zip
+    dest: "/usr/local"
+    copy: false
+
+...
