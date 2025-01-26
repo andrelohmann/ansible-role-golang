@@ -16,8 +16,14 @@
 - name: GoLang | Set version
   ansible.builtin.include_tasks: version.yml
 
+- name: GoLang | Source $HOME/.profile
+  ansible.builtin.shell: "source $HOME/.profile"
+  args:
+    executable: /bin/bash
+  changed_when: false
+
 - name: GoLang | Check current installed version
-  ansible.builtin.shell: "source $HOME/.profile; set -o pipefail && go version 2>&1 | grep {{ golang_version }}"
+  ansible.builtin.shell: "set -o pipefail && go version 2>&1 | grep {{ golang_version }}"
   args:
     executable: /bin/bash
   failed_when: false
