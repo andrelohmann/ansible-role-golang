@@ -1,7 +1,8 @@
 ---
-- hosts: all
+- name: Install
+  hosts: all
   become: true
-  become_method: sudo
+  become_method: ansible.builtin.sudo
 
   vars:
     golang_version: 'latest'
@@ -23,7 +24,7 @@
     when: stat_custom_vars.stat.exists
 
   roles:
-  - andrelohmann.root_colored_prompt
-  - ansible-role-golang
+  - name: andrelohmann.root_colored_prompt
+  - name: ansible-role-golang
 
 ...

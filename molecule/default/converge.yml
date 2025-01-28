@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   become: true
-  become_method: sudo
+  become_method: ansible.builtin.sudo
 
   vars:
     golang_version: 'latest'
@@ -13,7 +13,7 @@
     - root
 
   tasks:
-  - name: "Include andrelohmann.golang"
-    include_role:
+  - name: Include andrelohmann.golang
+    ansible.builtin.include_role:
       name: "andrelohmann.golang"
 ...
