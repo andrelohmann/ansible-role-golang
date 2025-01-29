@@ -11,6 +11,7 @@
     args:
       executable: /bin/bash
     register: go_version
+    changed_when: false
 
   - name: Dump go version
     ansible.builtin.debug:
