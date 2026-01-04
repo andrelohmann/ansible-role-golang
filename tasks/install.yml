@@ -2,7 +2,7 @@
 
 - name: GoLang | Set arch for Go
   ansible.builtin.set_fact:
-    go_arch: "{{ golang_arch_map[ansible_machine] | default('amd64') }}"
+    go_arch: "{{ golang_arch_map[ansible_facts[\"machine\"]] | default('amd64') }}"
   changed_when: false
 
 - name:  GoLang | Download golang archive
